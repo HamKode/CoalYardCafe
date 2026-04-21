@@ -305,6 +305,7 @@
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(10px);
+      min-width: 0;
     }
 
     .meta-chip strong {
@@ -314,6 +315,12 @@
       letter-spacing: 0.14em;
       color: #f3c998;
       margin-bottom: 0.4rem;
+    }
+
+    .meta-chip span {
+      display: block;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .hero-visual {
