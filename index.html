@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Coal Yard Cafe in Ithaca, NY. Breakfast, sandwiches, greens, and all-day cafe comfort in a warm neighborhood setting.">
+  <title>The Coal Yard Cafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #120e0b;
+      --panel: rgba(31, 24, 19, 0.78);
+      --panel-strong: rgba(20, 14, 10, 0.9);
+      --line: rgba(255, 237, 210, 0.14);
+      --text: #f8f0e5;
+      --muted: #ccbba7;
+      --accent: #e2a65f;
+      --accent-2: #a3c27f;
+      --shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+      --radius-lg: 30px;
+      --max-width: 1200px;
+      --transition: 280ms ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(226, 166, 95, 0.12), transparent 36%),
+        radial-gradient(circle at 85% 15%, rgba(163, 194, 127, 0.12), transparent 24%),
+        linear-gradient(180deg, #0f0b09 0%, #17110d 38%, #120e0b 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 120px 120px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 90%);
+      opacity: 0.25;
+      z-index: 0;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(12, 10, 8, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 78px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #2b2018, #120d09);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-copy strong,
+    .hero-copy h1,
+    .section-heading h2,
+    .menu-card h3,
+    .story-card h3,
+    .footer-brand h2 {
+      font-family: "Cormorant Garamond", serif;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 0.05rem;
+    }
+
+    .brand-copy strong {
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    .brand-copy span {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible,
+    .menu-filter.is-active,
+    .pill:hover,
+    .button:hover {
+      color: var(--text);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .mobile-toggle {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .button,
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 48px;
+      padding: 0 1.25rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
+    }
+
+    .button:hover,
+    .pill:hover,
+    .button:focus-visible,
+    .pill:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, var(--accent), #f0bc80);
+      color: #1a120d;
+      font-weight: 800;
+    }
+
+    .button-secondary,
+    .pill {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 2rem 0 5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-visual {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      min-height: 640px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: clamp(2rem, 4vw, 4rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background:
+        linear-gradient(180deg, rgba(18, 14, 11, 0.28), rgba(18, 14, 11, 0.9)),
+        url("./assets/images/_Y3A6871.jpg") center/cover;
+      isolation: isolate;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, rgba(226, 166, 95, 0.2), transparent 28%),
+        linear-gradient(140deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.38));
+      z-index: -1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 1rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      color: #f9d4a7;
+      background: rgba(18, 14, 11, 0.48);
+      border: 1px solid rgba(249, 212, 167, 0.2);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .hero-copy h1 {
+      margin: 0;
+      max-width: 10ch;
+      font-size: clamp(3.4rem, 8vw, 6.4rem);
+      line-height: 0.92;
+    }
+
+    .hero-copy p {
+      max-width: 52ch;
+      margin: 1.25rem 0 0;
+      font-size: 1.05rem;
+      color: #efe0cf;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.8rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    .meta-chip {
+      padding: 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .meta-chip strong {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #f3c998;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-visual {
+      background:
+        linear-gradient(180deg, rgba(9, 7, 5, 0.12), rgba(9, 7, 5, 0.7)),
+        url("./assets/images/_Y3A4222-2.jpg") center/cover;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 1.4rem;
+    }
+
+    .floating-note,
+    .hours-card {
+      backdrop-filter: blur(14px);
+      background: rgba(18, 14, 11, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .floating-note {
+      width: min(280px, 100%);
+      padding: 1rem 1.1rem;
+      border-radius: 22px;
+      align-self: start;
+      justify-self: end;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .floating-note strong {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: var(--accent);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .hours-card {
+      padding: 1.2rem;
+      border-radius: 24px;
+      align-self: end;
+    }
+
+    .hours-card h2 {
+      margin: 0 0 1rem;
+      font-size: 2rem;
+    }
+
+    .hours-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+    }
+
+    .hours-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    section {
+      padding: 1.5rem 0 5rem;
+    }
+
+    .section-heading {
+      display: grid;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 0.95;
+    }
+
+    .section-heading p {
+      margin: 0;
+      max-width: 60ch;
+      color: var(--muted);
+    }
+
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .story-card,
+    .story-image,
+    .menu-showcase,
+    .gallery-grid img,
+    .contact-panel,
+    .footer-shell {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .story-card {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent),
+        var(--panel);
+      border: 1px solid var(--line);
+      padding: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .story-card h3 {
+      margin: 0 0 1rem;
+      font-size: 2.2rem;
+    }
+
+    .story-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.6rem;
+    }
+
+    .story-points article {
+      padding: 1rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .story-points strong {
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.3rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .story-image {
+      min-height: 100%;
+      background:
+        linear-gradient(180deg, rgba(10, 8, 6, 0.08), rgba(10, 8, 6, 0.52)),
+        url("./assets/images/_Y3A4108.jpg") center/cover;
+      position: relative;
+    }
+
+    .story-image::after {
+      content: "Locally loved cafe atmosphere";
+      position: absolute;
+      left: 1.2rem;
+      bottom: 1.2rem;
+      padding: 0.8rem 1rem;
+      border-radius: 999px;
+      background: rgba(18, 14, 11, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+    }
+
+    .menu-showcase {
+      padding: 1.2rem;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+        rgba(20, 15, 11, 0.75);
+      border: 1px solid var(--line);
+    }
+
+    .menu-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .menu-filter {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+    }
+
+    .menu-filter.is-active {
+      background: linear-gradient(135deg, rgba(226, 166, 95, 0.18), rgba(226, 166, 95, 0.1));
+      border-color: rgba(226, 166, 95, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .menu-panels {
+      display: grid;
+    }
+
+    .menu-panel {
+      display: none;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .menu-panel.is-active {
+      display: grid;
+      animation: fadeUp 420ms ease;
+    }
+
+    .menu-card {
+      padding: 1.25rem;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .menu-card h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1.8rem;
+    }
+
+    .menu-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .menu-price {
+      display: inline-flex;
+      margin-top: 1rem;
+      padding: 0.45rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(226, 166, 95, 0.12);
+      border: 1px solid rgba(226, 166, 95, 0.18);
+      color: #f5c991;
+      font-weight: 800;
+    }
+
+    .feature-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.3rem;
+    }
+
+    .feature-strip article {
+      min-height: 200px;
+      padding: 1.2rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: end;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .feature-strip article::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(11, 9, 7, 0.02), rgba(11, 9, 7, 0.78));
+    }
+
+    .feature-strip article div {
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-strip strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .feature-strip span {
+      color: #ecd8c0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr 0.85fr;
+      gap: 1rem;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 500ms ease, filter 500ms ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.03);
+      filter: saturate(1.08);
+    }
+
+    .gallery-grid .tall {
+      grid-row: span 2;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 1.5rem;
+    }
+
+    .contact-panel {
+      padding: clamp(1.4rem, 3vw, 2rem);
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+    }
+
+    .contact-panel h3 {
+      margin: 0 0 1rem;
+      font-size: 1.4rem;
+    }
+
+    .reservation-banner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.4rem;
+      margin-top: 1.4rem;
+      border-radius: 26px;
+      background:
+        linear-gradient(135deg, rgba(226, 166, 95, 0.2), rgba(163, 194, 127, 0.1)),
+        rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(226, 166, 95, 0.22);
+      box-shadow: var(--shadow);
+    }
+
+    .reservation-banner p,
+    .testimonial-card p,
+    .full-menu-intro p,
+    .menu-list li span:last-child {
+      color: var(--muted);
+    }
+
+    .reservation-banner strong,
+    .testimonial-card strong,
+    .full-menu-block h3 {
+      display: block;
+    }
+
+    .reservation-banner strong {
+      font-size: 1.35rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .heritage-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 1rem;
+      margin-top: 1.6rem;
+    }
+
+    .heritage-card,
+    .heritage-timeline {
+      padding: 1.4rem;
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+        rgba(20, 15, 11, 0.74);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .heritage-card h3,
+    .heritage-timeline h3 {
+      margin: 0 0 1rem;
+      font-size: 1.8rem;
+    }
+
+    .heritage-card p,
+    .heritage-timeline p,
+    .heritage-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .heritage-copy {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .heritage-highlight {
+      padding: 1rem 1.1rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .heritage-highlight strong,
+    .heritage-item strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #f5c991;
+    }
+
+    .heritage-list {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .heritage-item {
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .heritage-item:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .full-menu-wrap {
+      margin-top: 1.6rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .full-menu-intro {
+      padding: 1.25rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .full-menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .full-menu-block {
+      padding: 1.25rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .full-menu-block h3 {
+      margin: 0 0 1rem;
+      font-size: 1.5rem;
+      color: #f6d3a5;
+    }
+
+    .menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .menu-list li {
+      display: grid;
+      gap: 0.2rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .menu-list li:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .menu-list strong {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .testimonial-card {
+      padding: 1.4rem;
+      border-radius: 26px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+        rgba(20, 15, 11, 0.74);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .testimonial-card p {
+      margin: 0 0 1.2rem;
+      font-size: 1rem;
+    }
+
+    .testimonial-card strong {
+      margin-bottom: 0.15rem;
+      color: #f4c791;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .contact-item {
+      display: grid;
+      gap: 0.2rem;
+      padding: 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .contact-item span {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .contact-item strong,
+    .contact-item a {
+      font-size: 1rem;
+    }
+
+    .map-card {
+      min-height: 100%;
+      background:
+        linear-gradient(180deg, rgba(10, 8, 6, 0.2), rgba(10, 8, 6, 0.8)),
+        url("./assets/images/_Y3A4226.jpg") center/cover;
+      display: flex;
+      align-items: end;
+    }
+
+    .map-overlay {
+      width: 100%;
+      padding: 1.6rem;
+      background: linear-gradient(180deg, transparent, rgba(12, 10, 8, 0.9));
+    }
+
+    .map-overlay p {
+      max-width: 36ch;
+      color: #eadccc;
+      margin: 0.6rem 0 1rem;
+    }
+
+    .footer {
+      padding: 0 0 2rem;
+    }
+
+    .footer-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.4rem 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-brand h2 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .footer-brand p {
+      margin: 0.45rem 0 0;
+      color: var(--muted);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .nav-bar {
+        flex-wrap: wrap;
+        padding: 0.8rem 0;
+      }
+
+      .mobile-toggle {
+        display: inline-grid;
+        place-items: center;
+      }
+
+      .nav-links,
+      .nav-actions .button-secondary {
+        display: none;
+      }
+
+      .site-header.is-open .nav-links,
+      .site-header.is-open .nav-actions .button-secondary {
+        display: flex;
+      }
+
+      .site-header.is-open .nav-links {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.6rem 0 1rem;
+      }
+
+      .site-header.is-open .nav-actions {
+        width: 100%;
+      }
+
+      .hero-grid,
+      .story-layout,
+      .contact-layout,
+      .footer-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .hero-visual {
+        min-height: 520px;
+      }
+
+      .hero-meta,
+      .feature-strip,
+      .testimonials-grid,
+      .heritage-grid,
+      .full-menu-grid,
+      .menu-panel,
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .reservation-banner {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid .tall {
+        grid-row: auto;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(var(--max-width), calc(100% - 1rem));
+      }
+
+      section {
+        padding: 1rem 0 4rem;
+      }
+
+      .hero {
+        padding-bottom: 4rem;
+      }
+
+      .hero-copy,
+      .hero-visual,
+      .story-card,
+      .menu-showcase,
+      .contact-panel,
+      .footer-shell {
+        border-radius: 22px;
+      }
+
+      .hero-copy h1 {
+        max-width: 100%;
+      }
+
+      .hero-meta,
+      .story-points {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-note {
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header" id="top">
+      <div class="container nav-bar">
+        <a class="brand" href="#top" aria-label="The Coal Yard Cafe home">
+          <div class="brand-mark">CY</div>
+          <div class="brand-copy">
+            <strong>The Coal Yard Cafe</strong>
+            <span>Ithaca, New York</span>
+          </div>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#story">About</a>
+          <a href="#menu">Menu</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#visit">Visit</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a class="button button-secondary" href="tel:6072770734">Call Cafe</a>
+          <a class="button button-primary" href="#menu">Explore Menu</a>
+          <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <span class="eyebrow">Breakfast to comfort classics</span>
+            <h1>Comfort food, good coffee, and a room full of regulars.</h1>
+            <p>From early eggs and shakshuka to stacked sandwiches, fresh greens, and hand-cut fries, The Coal Yard Cafe is the kind of neighborhood spot people come back to again and again.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#visit">Plan Your Visit</a>
+              <a class="button button-secondary" href="#gallery">See The Space</a>
+            </div>
+            <div class="hero-meta">
+              <div class="meta-chip">
+                <strong>Address</strong>
+                <span>143 Maple Ave, Ithaca, NY 14850</span>
+              </div>
+              <div class="meta-chip">
+                <strong>Contact</strong>
+                <span>607.277.0734</span>
+              </div>
+              <div class="meta-chip">
+                <strong>Email</strong>
+                <span>thecoalyardcafe@gmail.com</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="floating-note">
+              <strong>House Highlights</strong>
+              <span>Shakshuka, Yard Burger, falafel, crepes, salmon sandwiches, and all-day comfort with a cafe touch.</span>
+            </div>
+
+            <div class="hours-card">
+              <h2>Open all week</h2>
+              <div class="hours-grid">
+                <div class="hours-row"><span>Mon to Fri</span><strong>8am to 3pm</strong></div>
+                <div class="hours-row"><span>Sat</span><strong>9am to 3pm</strong></div>
+                <div class="hours-row"><span>Sun</span><strong>9am to 3pm</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="story">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">About The Cafe</span>
+            <h2>Warm mornings, easy lunches, and all-day cafe comfort.</h2>
+            <p>Set in Ithaca on Maple Avenue, The Coal Yard Cafe serves familiar favorites, house specials, and the kind of plates that make lingering over breakfast or lunch feel like a good idea.</p>
+          </div>
+
+          <div class="story-layout">
+            <div class="story-card reveal">
+              <h3>Good food, friendly energy, and a table worth settling into.</h3>
+              <p>Whether you are dropping in for a quick breakfast sandwich, meeting someone for lunch, or staying a little longer over coffee, the cafe keeps things welcoming, hearty, and full of character.</p>
+              <div class="story-points">
+                <article>
+                  <strong>Breakfast Worth Waking Up For</strong>
+                  <p>Egg plates, bagels, burritos, crepes, and shakshuka make mornings here feel easy.</p>
+                </article>
+                <article>
+                  <strong>Lunch With Real Flavor</strong>
+                  <p>From falafel and greens to burgers, salmon, and stacked sandwiches, there is something for every appetite.</p>
+                </article>
+                <article>
+                  <strong>Neighborhood Atmosphere</strong>
+                  <p>Warm interiors, familiar faces, and a laid-back room make it a place people like to return to.</p>
+                </article>
+                <article>
+                  <strong>Comfort In Every Visit</strong>
+                  <p>Come in for a quick bite, stay for a slow lunch, or grab one of the house favorites on the way through town.</p>
+                </article>
+              </div>
+            </div>
+
+            <div class="story-image reveal" aria-hidden="true"></div>
+          </div>
+
+          <div class="reservation-banner reveal">
+            <div>
+              <strong>Planning breakfast or lunch with friends?</strong>
+              <p>Reserve ahead and make sure your table is ready when you arrive.</p>
+            </div>
+            <a class="button button-primary" href="https://www.opentable.com/" target="_blank" rel="noreferrer">Reserve Online</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="history">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">History Of The Coal Yard Cafe</span>
+            <h2>A cafe built inside a piece of Ithaca history.</h2>
+            <p>The name comes from the building itself. Long before it became a place for breakfast and lunch, this address was part of Ithaca's coal trade and daily life.</p>
+          </div>
+
+          <div class="heritage-grid">
+            <div class="heritage-card reveal">
+              <h3>Why is it called The Coal Yard Cafe?</h3>
+              <div class="heritage-copy">
+                <p>Near the original entrance sits a large piece of coal carved with the words <strong>Coal Office</strong>. For years, this building housed the businesses that sold heating coal to Ithaca residents, and traces of that past are still part of the cafe today.</p>
+                <div class="heritage-highlight">
+                  <strong>History you can still see inside</strong>
+                  <p>The brass balance beam from the truck scales is still in the dining area, and the old business safe now lives on as the Safe Table inside the cafe.</p>
+                </div>
+                <p>Coal selling began here in 1901 at 143 Maple Avenue through the Stevens and Cornell East Hill Coal Yard. The Cornell name belonged to Francis C. Cornell, grandson of Ezra Cornell, founder of Cornell University.</p>
+              </div>
+            </div>
+
+            <div class="heritage-timeline reveal">
+              <h3>From coal yard to cafe</h3>
+              <div class="heritage-list">
+                <div class="heritage-item">
+                  <strong>1901 and after</strong>
+                  <p>The property became part of Ithaca's coal business, receiving coal shipped from Pennsylvania by rail to the Lehigh Valley Railroad side track in the yard.</p>
+                </div>
+                <div class="heritage-item">
+                  <strong>Across Maple Avenue</strong>
+                  <p>The East Ithaca Railroad Depot once stood nearby, where many Cornell students first arrived in Ithaca.</p>
+                </div>
+                <div class="heritage-item">
+                  <strong>Until 1960</strong>
+                  <p>The coal yard passed through several owners and names. The last was the Perry Coal Company, whose restored sign still hangs on the outer east wall.</p>
+                </div>
+                <div class="heritage-item">
+                  <strong>Since 2006</strong>
+                  <p>Before full cooking was allowed on-site, the cafe served pastries, breads, and lunch treats prepared elsewhere.</p>
+                </div>
+                <div class="heritage-item">
+                  <strong>Opened in 2013</strong>
+                  <p>The Coal Yard Cafe officially opened in the historic Perry Coal Office building, bringing new life to a neighborhood landmark with breakfast, lunch, and a kitchen of its own.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="menu">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">From The Kitchen</span>
+            <h2>Breakfast classics, house favorites, and satisfying plates all day.</h2>
+            <p>Start with the highlights below, then browse the full menu for more breakfast staples, salads, sandwiches, soups, and sides.</p>
+          </div>
+
+          <div class="menu-showcase reveal">
+            <div class="menu-filters" id="mobile-nav">
+              <button class="menu-filter is-active" type="button" data-menu="breakfast">Breakfast</button>
+              <button class="menu-filter" type="button" data-menu="signatures">Signatures</button>
+              <button class="menu-filter" type="button" data-menu="greens">Greens</button>
+              <button class="menu-filter" type="button" data-menu="sandwiches">Sandwiches</button>
+              <button class="menu-filter" type="button" data-menu="sides">Sides</button>
+            </div>
+
+            <div class="menu-panels">
+              <div class="menu-panel is-active" data-panel="breakfast">
+                <article class="menu-card">
+                  <h3>Two Eggs</h3>
+                  <p>Your way with toast and fruit. Add sausage, bacon, ham, veggies, cheddar, swiss, feta, avocado, salsa, or lox to build it out.</p>
+                  <span class="menu-price">$6</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Breakfast Bagel</h3>
+                  <p>Poppy, sesame, or plain bagel with egg and your choice of ingredients.</p>
+                  <span class="menu-price">$8</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Breakfast Croissant</h3>
+                  <p>Fresh baked butter croissant layered with egg and your chosen add-ins.</p>
+                  <span class="menu-price">$8</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Breakfast Burrito</h3>
+                  <p>Egg, braised beans, sharp cheddar, cafe salsa, and a flour tortilla.</p>
+                  <span class="menu-price">$8</span>
+                </article>
+              </div>
+
+              <div class="menu-panel" data-panel="signatures">
+                <article class="menu-card">
+                  <h3>Shakshuka</h3>
+                  <p>Stewed tomatoes, artichoke, spinach, onions, feta, fried eggs, and pita points.</p>
+                  <span class="menu-price">$10</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Rice Bowl</h3>
+                  <p>Pork, fried egg, avocado, cucumber, carrot, peanuts, jasmine rice, scallion, and sweet chili sauce.</p>
+                  <span class="menu-price">$12</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Flap Quacks</h3>
+                  <p>Johnny cakes with fried egg, local maple syrup, duck confit, and scallion.</p>
+                  <span class="menu-price">$15</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Sweet Potato Hash</h3>
+                  <p>Flash fried haystack, sunny side egg, pork sausage patty, onion, and toast.</p>
+                  <span class="menu-price">$10</span>
+                </article>
+              </div>
+
+              <div class="menu-panel" data-panel="greens">
+                <article class="menu-card">
+                  <h3>Coal Yard Greens</h3>
+                  <p>Mixed greens with cucumber, onion, tomato, carrot, peanuts, tuna, hard-boiled egg, and dressing.</p>
+                  <span class="menu-price">$10</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Greek Salad</h3>
+                  <p>Greens, olives, cucumber, onion, tomato, roasted bell pepper, artichoke, and feta.</p>
+                  <span class="menu-price">$10</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Quinoa Bowl</h3>
+                  <p>Warm quinoa, spinach, cucumber, carrot, peppers, artichoke, olives, tomato, feta, and dressing.</p>
+                  <span class="menu-price">$10</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Asian Noodle Salad</h3>
+                  <p>Firm tofu, mixed greens, vegetables, lo mein noodle, black sesame, and ginger soy vinaigrette.</p>
+                  <span class="menu-price">$10</span>
+                </article>
+              </div>
+
+              <div class="menu-panel" data-panel="sandwiches">
+                <article class="menu-card">
+                  <h3>Yard Burger</h3>
+                  <p>Lean ground beef, thick-cut bacon, chipotle, cheddar, and hand-cut French fries on the side.</p>
+                  <span class="menu-price">$15</span>
+                </article>
+                <article class="menu-card">
+                  <h3>B.L.A.S.T.</h3>
+                  <p>Bacon, lettuce, avocado, salmon lox, tomato, scallion, and cream cheese on toasted marble rye.</p>
+                  <span class="menu-price">$15</span>
+                </article>
+                <article class="menu-card">
+                  <h3>El Cubano</h3>
+                  <p>Slow roasted pulled pork, baked deli ham, swiss, gherkin relish, chipotle aioli, and cafe chips.</p>
+                  <span class="menu-price">$10</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Falafel</h3>
+                  <p>Warm pita, chickpea fritters, spinach, Israeli salad, feta, tzatziki, and pesto dressing.</p>
+                  <span class="menu-price">$10</span>
+                </article>
+              </div>
+
+              <div class="menu-panel" data-panel="sides">
+                <article class="menu-card">
+                  <h3>Hand-Cut French Fries</h3>
+                  <p>Classic cafe side done simply and well.</p>
+                  <span class="menu-price">$5</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Sweet Potato Fries</h3>
+                  <p>Crisp, warm, and a perfect add-on for sandwiches.</p>
+                  <span class="menu-price">$5</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Cafe Coal Slaw</h3>
+                  <p>Fresh slaw that shows up throughout the menu as a signature side.</p>
+                  <span class="menu-price">$4</span>
+                </article>
+                <article class="menu-card">
+                  <h3>Home Fries</h3>
+                  <p>A hearty breakfast side with classic cafe comfort.</p>
+                  <span class="menu-price">$5</span>
+                </article>
+              </div>
+            </div>
+
+            <div class="feature-strip">
+              <article class="reveal" style="background-image:url('./assets/images/_Y3A6913.jpg')">
+                <div>
+                  <strong>Breakfast Energy</strong>
+                  <span>Eggs, bagels, burritos, crepes, and the kind of comfort that starts the day right.</span>
+                </div>
+              </article>
+              <article class="reveal" style="background-image:url('./assets/images/_Y3A6903.jpg')">
+                <div>
+                  <strong>House Favorites</strong>
+                  <span>From shakshuka to rice bowls, every plate brings its own personality to the table.</span>
+                </div>
+              </article>
+              <article class="reveal" style="background-image:url('./assets/images/_Y3A4122.jpg')">
+                <div>
+                  <strong>Room To Settle In</strong>
+                  <span>Come for a quick meal or stay long enough to enjoy the room, the coffee, and the company.</span>
+                </div>
+              </article>
+            </div>
+
+            <div class="full-menu-wrap reveal">
+              <div class="full-menu-intro">
+                <span class="eyebrow">Full Menu</span>
+                <p>A few more favorites from the kitchen, including breakfast plates, lunch staples, lighter options, and classic sides.</p>
+              </div>
+
+              <div class="full-menu-grid">
+                <div class="full-menu-block">
+                  <h3>Breakfast Favorites</h3>
+                  <ul class="menu-list">
+                    <li><strong><span>Ranch Eggs</span><span>$10</span></strong><span>Crisp potatoes, braised beans, fried egg, cheddar cheese, salsa, chipotle aioli, scallion.</span></li>
+                    <li><strong><span>Falafel and Egg</span><span>$11</span></strong><span>Warm pita, egg, chickpea fritter, Israeli salad, spinach, feta, pesto dressing.</span></li>
+                    <li><strong><span>Bagel, Lox, and Egg</span><span>$13</span></strong><span>1000 island spread, fresh spinach, cafe cured salmon lox, fried egg.</span></li>
+                    <li><strong><span>The Danwich</span><span>$8</span></strong><span>English muffin, egg, bacon, chipotle. Double it with 2 for $10.</span></li>
+                    <li><strong><span>Crepes</span><span>$10</span></strong><span>Thin french style pancakes, mixed berry compote, whipped cream.</span></li>
+                    <li><strong><span>Cheddar Grits Bowl</span><span>$10</span></strong><span>Bacon bits, spinach, fried egg, creamy grits, cheddar, hot sauce.</span></li>
+                    <li><strong><span>Jail House Wrap</span><span>$11</span></strong><span>Rice bowl and sweet potato hash wrapped in a flour tortilla.</span></li>
+                  </ul>
+                </div>
+
+                <div class="full-menu-block">
+                  <h3>Lunch and House Plates</h3>
+                  <ul class="menu-list">
+                    <li><strong><span>Roasted Chicken BBQ</span><span>$10</span></strong><span>Sweet and tangy BBQ, pulled chicken, kaiser roll, side Coal Slaw.</span></li>
+                    <li><strong><span>Slow Roasted Pulled Pork</span><span>$10</span></strong><span>BBQ pulled pork, thick-cut bacon, Coal Slaw, side Cafe chips.</span></li>
+                    <li><strong><span>Chicken Pasta Pesto</span><span>$12</span></strong><span>Spinach, tomato, mushroom, onion, rigatoni, creamy pesto, pecorino.</span></li>
+                    <li><strong><span>Slawpy Jalopy</span><span>$10</span></strong><span>Falafel patty, Coal slaw, pesto, 1000 island, swiss, feta on marble rye.</span></li>
+                    <li><strong><span>Grilled Salmon</span><span>$15</span></strong><span>Avocado and Coal slaw on kaiser.</span></li>
+                    <li><strong><span>Turkey Rachel</span><span>$10</span></strong><span>Sliced roasted turkey, swiss, Coal slaw, 1000 island on marble rye.</span></li>
+                    <li><strong><span>Sausage Rigatoni</span><span>$12</span></strong><span>Stewed tomatoes, spinach, onions, mushrooms, red sauce, pecorino cheese.</span></li>
+                  </ul>
+                </div>
+
+                <div class="full-menu-block">
+                  <h3>Greens and Add-Ons</h3>
+                  <ul class="menu-list">
+                    <li><strong><span>Classic Caesar Salad</span><span>$10</span></strong><span>Romaine, croutons, pecorino cheese, cafe Caesar dressing.</span></li>
+                    <li><strong><span>Add Grilled Tofu or Falafel</span><span>$4</span></strong><span>Easy protein add-on for salad bowls.</span></li>
+                    <li><strong><span>Add Grilled Chicken Breast</span><span>$5</span></strong><span>Extra protein for greens and bowls.</span></li>
+                    <li><strong><span>Add Grilled Salmon</span><span>$6</span></strong><span>Premium add-on option for a more filling plate.</span></li>
+                    <li><strong><span>Soup du Jour or Chicken Matzo Ball</span><span>$4 / $5</span></strong><span>Served as cup or bowl depending on appetite.</span></li>
+                  </ul>
+                </div>
+
+                <div class="full-menu-block">
+                  <h3>Sides and Basics</h3>
+                  <ul class="menu-list">
+                    <li><strong><span>Thick-Cut Bacon</span><span>$4</span></strong><span>Classic breakfast add-on.</span></li>
+                    <li><strong><span>Pork Sausage Patty</span><span>$4</span></strong><span>Hearty side for egg plates and hashes.</span></li>
+                    <li><strong><span>Sauteed Greens</span><span>$3</span></strong><span>Simple warm side option.</span></li>
+                    <li><strong><span>Fresh Fruit</span><span>$5</span></strong><span>Light, clean side for breakfast or lunch.</span></li>
+                    <li><strong><span>Toasted Bagel / Cream Cheese</span><span>$2 / $3</span></strong><span>Quick classic with flexible pricing.</span></li>
+                    <li><strong><span>Side Toast</span><span>$2</span></strong><span>Simple add-on for breakfast plates.</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Inside Coal Yard</span>
+            <h2>A closer look at the room, the mood, and the table.</h2>
+            <p>Take a look around the cafe and get a feel for the warm, relaxed atmosphere waiting inside.</p>
+          </div>
+
+          <div class="gallery-grid">
+            <img class="tall reveal" src="./assets/images/_Y3A4226.jpg" alt="Inside The Coal Yard Cafe">
+            <img class="reveal" src="./assets/images/_Y3A6871.jpg" alt="Coal Yard Cafe seating and ambience">
+            <img class="reveal" src="./assets/images/_Y3A4108.jpg" alt="Coal Yard Cafe dining area">
+            <img class="reveal" src="./assets/images/_Y3A6913.jpg" alt="Coal Yard Cafe menu or plate detail">
+            <img class="reveal" src="./assets/images/_Y3A4122.jpg" alt="Coal Yard Cafe atmosphere">
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">What People Say</span>
+            <h2>Local favorite for a reason.</h2>
+            <p>From weekend brunch to weekday lunch, people keep coming back for the food, the warmth, and the familiar feel of the room.</p>
+          </div>
+
+          <div class="testimonials-grid">
+            <article class="testimonial-card reveal">
+              <p>"The atmosphere feels warm the second you walk in, and the food tastes like the kitchen actually cares. The shakshuka and breakfast bagel are always worth the stop."</p>
+              <strong>Sarah M.</strong>
+              <span>Weekend brunch regular</span>
+            </article>
+            <article class="testimonial-card reveal">
+              <p>"Coal Yard has that rare mix of neighborhood comfort and genuinely memorable menu items. The burger, fries, and salmon options make it easy to keep coming back."</p>
+              <strong>Daniel R.</strong>
+              <span>Local lunch crowd favorite</span>
+            </article>
+            <article class="testimonial-card reveal">
+              <p>"It is the kind of cafe you recommend without thinking twice: friendly service, cozy energy, and a menu that works whether you want something light or full comfort food."</p>
+              <strong>Nina T.</strong>
+              <span>First-time visitor turned repeat guest</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="visit">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Visit The Cafe</span>
+            <h2>Stop by, settle in, and stay a while.</h2>
+            <p>You will find The Coal Yard Cafe on Maple Avenue in Ithaca, serving breakfast and lunch all week long.</p>
+          </div>
+
+          <div class="contact-layout">
+            <div class="contact-panel reveal">
+              <h3>Drop by or reach out</h3>
+              <div class="contact-list">
+                <div class="contact-item">
+                  <span>Address</span>
+                  <strong>143 Maple Ave, Ithaca, NY 14850</strong>
+                </div>
+                <div class="contact-item">
+                  <span>Phone</span>
+                  <a href="tel:6072770734">607.277.0734</a>
+                </div>
+                <div class="contact-item">
+                  <span>Email</span>
+                  <a href="mailto:thecoalyardcafe@gmail.com">thecoalyardcafe@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                  <span>Hours</span>
+                  <strong>Mon to Fri 8am to 3pm</strong>
+                  <strong>Sat to Sun 9am to 3pm</strong>
+                </div>
+              </div>
+              <div class="hero-actions" style="margin-top: 1.3rem;">
+                <a class="button button-primary" href="https://maps.google.com/?q=143+Maple+Ave+Ithaca+NY+14850" target="_blank" rel="noreferrer">Open in Maps</a>
+                <a class="button button-secondary" href="mailto:thecoalyardcafe@gmail.com">Email Cafe</a>
+              </div>
+            </div>
+
+            <div class="contact-panel map-card reveal">
+              <div class="map-overlay">
+                <span class="eyebrow">Neighborhood stop</span>
+                <h3>Easy to find. Hard to forget.</h3>
+                <p>Easy to find, welcoming inside, and always a good place to return to for breakfast, lunch, or a laid-back bite in town.</p>
+                <a class="pill" href="#top">Back to top</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-shell reveal">
+        <div class="footer-brand">
+          <h2>The Coal Yard Cafe</h2>
+          <p>Breakfast, lunch, coffee, and neighborhood comfort in Ithaca, New York.</p>
+        </div>
+        <a class="button button-primary" href="tel:6072770734">Call 607.277.0734</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const filters = document.querySelectorAll(".menu-filter");
+    const panels = document.querySelectorAll(".menu-panel");
+
+    filters.forEach((filter) => {
+      filter.addEventListener("click", () => {
+        const target = filter.dataset.menu;
+
+        filters.forEach((button) => button.classList.toggle("is-active", button === filter));
+        panels.forEach((panel) => panel.classList.toggle("is-active", panel.dataset.panel === target));
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+
+    const header = document.querySelector(".site-header");
+    const toggle = document.querySelector(".mobile-toggle");
+
+    toggle.addEventListener("click", () => {
+      const nextState = !header.classList.contains("is-open");
+      header.classList.toggle("is-open", nextState);
+      toggle.setAttribute("aria-expanded", String(nextState));
+    });
+
+    document.querySelectorAll(".nav-links a, .nav-actions a").forEach((link) => {
+      link.addEventListener("click", () => {
+        header.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
+</body>
+</html>
