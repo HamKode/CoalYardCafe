@@ -243,7 +243,7 @@
       justify-content: flex-end;
       background:
         linear-gradient(180deg, rgba(18, 14, 11, 0.28), rgba(18, 14, 11, 0.9)),
-        url("./assets/images/_Y3A6871.jpg") center/cover;
+        url("/assets/images/_Y3A6871.jpg") center/cover;
       isolation: isolate;
     }
 
@@ -326,7 +326,7 @@
     .hero-visual {
       background:
         linear-gradient(180deg, rgba(9, 7, 5, 0.12), rgba(9, 7, 5, 0.7)),
-        url("./assets/images/_Y3A4222-2.jpg") center/cover;
+        url("/assets/images/_Y3A4222-2.jpg") center/cover;
       display: grid;
       grid-template-rows: 1fr auto;
       padding: 1.4rem;
@@ -467,7 +467,7 @@
       min-height: 100%;
       background:
         linear-gradient(180deg, rgba(10, 8, 6, 0.08), rgba(10, 8, 6, 0.52)),
-        url("./assets/images/_Y3A4108.jpg") center/cover;
+        url("/assets/images/_Y3A4108.jpg") center/cover;
       position: relative;
     }
 
@@ -859,7 +859,7 @@
       min-height: 100%;
       background:
         linear-gradient(180deg, rgba(10, 8, 6, 0.2), rgba(10, 8, 6, 0.8)),
-        url("./assets/images/_Y3A4226.jpg") center/cover;
+        url("/assets/images/_Y3A4226.jpg") center/cover;
       display: flex;
       align-items: end;
     }
@@ -933,18 +933,22 @@
         padding: 0.8rem 0;
       }
 
+      .nav-actions {
+        margin-left: auto;
+      }
+
       .mobile-toggle {
         display: inline-grid;
         place-items: center;
       }
 
       .nav-links,
-      .nav-actions .button-secondary {
+      .nav-actions .button {
         display: none;
       }
 
       .site-header.is-open .nav-links,
-      .site-header.is-open .nav-actions .button-secondary {
+      .site-header.is-open .nav-actions .button {
         display: flex;
       }
 
@@ -952,10 +956,24 @@
         width: 100%;
         flex-direction: column;
         align-items: flex-start;
-        padding: 0.6rem 0 1rem;
+        gap: 0.9rem;
+        padding: 1rem 0 0.8rem;
+      }
+
+      .site-header.is-open .nav-links a {
+        width: 100%;
+        padding: 0.2rem 0;
       }
 
       .site-header.is-open .nav-actions {
+        width: 100%;
+        display: grid;
+        gap: 0.8rem;
+        padding-bottom: 1rem;
+      }
+
+      .site-header.is-open .nav-actions .button,
+      .site-header.is-open .mobile-toggle {
         width: 100%;
       }
 
@@ -1043,7 +1061,7 @@
           </div>
         </a>
 
-        <nav class="nav-links" aria-label="Primary navigation">
+        <nav class="nav-links" id="site-nav" aria-label="Primary navigation">
           <a href="#story">About</a>
           <a href="#menu">Menu</a>
           <a href="#gallery">Gallery</a>
@@ -1053,7 +1071,7 @@
         <div class="nav-actions">
           <a class="button button-secondary" href="tel:6072770734">Call Cafe</a>
           <a class="button button-primary" href="#menu">Explore Menu</a>
-          <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+          <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
         </div>
       </div>
     </header>
@@ -1333,19 +1351,19 @@
             </div>
 
             <div class="feature-strip">
-              <article class="reveal" style="background-image:url('./assets/images/_Y3A6913.jpg')">
+              <article class="reveal" style="background-image:url('/assets/images/_Y3A6913.jpg')">
                 <div>
                   <strong>Breakfast Energy</strong>
                   <span>Eggs, bagels, burritos, crepes, and the kind of comfort that starts the day right.</span>
                 </div>
               </article>
-              <article class="reveal" style="background-image:url('./assets/images/_Y3A6903.jpg')">
+              <article class="reveal" style="background-image:url('/assets/images/_Y3A6903.jpg')">
                 <div>
                   <strong>House Favorites</strong>
                   <span>From shakshuka to rice bowls, every plate brings its own personality to the table.</span>
                 </div>
               </article>
-              <article class="reveal" style="background-image:url('./assets/images/_Y3A4122.jpg')">
+              <article class="reveal" style="background-image:url('/assets/images/_Y3A4122.jpg')">
                 <div>
                   <strong>Room To Settle In</strong>
                   <span>Come for a quick meal or stay long enough to enjoy the room, the coffee, and the company.</span>
@@ -1423,11 +1441,11 @@
           </div>
 
           <div class="gallery-grid">
-            <img class="tall reveal" src="./assets/images/_Y3A4226.jpg" alt="Inside The Coal Yard Cafe">
-            <img class="reveal" src="./assets/images/_Y3A6871.jpg" alt="Coal Yard Cafe seating and ambience">
-            <img class="reveal" src="./assets/images/_Y3A4108.jpg" alt="Coal Yard Cafe dining area">
-            <img class="reveal" src="./assets/images/_Y3A6913.jpg" alt="Coal Yard Cafe menu or plate detail">
-            <img class="reveal" src="./assets/images/_Y3A4122.jpg" alt="Coal Yard Cafe atmosphere">
+            <img class="tall reveal" src="/assets/images/_Y3A4226.jpg" alt="Inside The Coal Yard Cafe" loading="lazy">
+            <img class="reveal" src="/assets/images/_Y3A6871.jpg" alt="Coal Yard Cafe seating and ambience" loading="lazy">
+            <img class="reveal" src="/assets/images/_Y3A4108.jpg" alt="Coal Yard Cafe dining area" loading="lazy">
+            <img class="reveal" src="/assets/images/_Y3A6913.jpg" alt="Coal Yard Cafe menu or plate detail" loading="lazy">
+            <img class="reveal" src="/assets/images/_Y3A4122.jpg" alt="Coal Yard Cafe atmosphere" loading="lazy">
           </div>
         </div>
       </section>
@@ -1547,18 +1565,20 @@
     const header = document.querySelector(".site-header");
     const toggle = document.querySelector(".mobile-toggle");
 
-    toggle.addEventListener("click", () => {
-      const nextState = !header.classList.contains("is-open");
-      header.classList.toggle("is-open", nextState);
-      toggle.setAttribute("aria-expanded", String(nextState));
-    });
-
-    document.querySelectorAll(".nav-links a, .nav-actions a").forEach((link) => {
-      link.addEventListener("click", () => {
-        header.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
+    if (header && toggle) {
+      toggle.addEventListener("click", () => {
+        const nextState = !header.classList.contains("is-open");
+        header.classList.toggle("is-open", nextState);
+        toggle.setAttribute("aria-expanded", String(nextState));
       });
-    });
+
+      document.querySelectorAll(".nav-links a, .nav-actions a").forEach((link) => {
+        link.addEventListener("click", () => {
+          header.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
   </script>
 </body>
 </html>
