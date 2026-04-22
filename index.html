@@ -243,7 +243,7 @@
       justify-content: flex-end;
       background:
         linear-gradient(180deg, rgba(18, 14, 11, 0.28), rgba(18, 14, 11, 0.9)),
-        url("/assets/images/_Y3A6871.jpg") center/cover;
+        url("./assets/images/_Y3A6871.jpg") center/cover;
       isolation: isolate;
     }
 
@@ -326,7 +326,7 @@
     .hero-visual {
       background:
         linear-gradient(180deg, rgba(9, 7, 5, 0.12), rgba(9, 7, 5, 0.7)),
-        url("/assets/images/_Y3A4222-2.jpg") center/cover;
+        url("./assets/images/_Y3A4222-2.jpg") center/cover;
       display: grid;
       grid-template-rows: 1fr auto;
       padding: 1.4rem;
@@ -467,7 +467,7 @@
       min-height: 100%;
       background:
         linear-gradient(180deg, rgba(10, 8, 6, 0.08), rgba(10, 8, 6, 0.52)),
-        url("/assets/images/_Y3A4108.jpg") center/cover;
+        url("./assets/images/_Y3A4108.jpg") center/cover;
       position: relative;
     }
 
@@ -859,7 +859,7 @@
       min-height: 100%;
       background:
         linear-gradient(180deg, rgba(10, 8, 6, 0.2), rgba(10, 8, 6, 0.8)),
-        url("/assets/images/_Y3A4226.jpg") center/cover;
+        url("./assets/images/_Y3A4226.jpg") center/cover;
       display: flex;
       align-items: end;
     }
@@ -901,12 +901,17 @@
     }
 
     .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    html.js .reveal {
       opacity: 0;
       transform: translateY(34px);
       transition: opacity 700ms ease, transform 700ms ease;
     }
 
-    .reveal.is-visible {
+    html.js .reveal.is-visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -1351,19 +1356,19 @@
             </div>
 
             <div class="feature-strip">
-              <article class="reveal" style="background-image:url('/assets/images/_Y3A6913.jpg')">
+              <article class="reveal" style="background-image:url('./assets/images/_Y3A6913.jpg')">
                 <div>
                   <strong>Breakfast Energy</strong>
                   <span>Eggs, bagels, burritos, crepes, and the kind of comfort that starts the day right.</span>
                 </div>
               </article>
-              <article class="reveal" style="background-image:url('/assets/images/_Y3A6903.jpg')">
+              <article class="reveal" style="background-image:url('./assets/images/_Y3A6903.jpg')">
                 <div>
                   <strong>House Favorites</strong>
                   <span>From shakshuka to rice bowls, every plate brings its own personality to the table.</span>
                 </div>
               </article>
-              <article class="reveal" style="background-image:url('/assets/images/_Y3A4122.jpg')">
+              <article class="reveal" style="background-image:url('./assets/images/_Y3A4122.jpg')">
                 <div>
                   <strong>Room To Settle In</strong>
                   <span>Come for a quick meal or stay long enough to enjoy the room, the coffee, and the company.</span>
@@ -1441,11 +1446,11 @@
           </div>
 
           <div class="gallery-grid">
-            <img class="tall reveal" src="/assets/images/_Y3A4226.jpg" alt="Inside The Coal Yard Cafe" loading="lazy">
-            <img class="reveal" src="/assets/images/_Y3A6871.jpg" alt="Coal Yard Cafe seating and ambience" loading="lazy">
-            <img class="reveal" src="/assets/images/_Y3A4108.jpg" alt="Coal Yard Cafe dining area" loading="lazy">
-            <img class="reveal" src="/assets/images/_Y3A6913.jpg" alt="Coal Yard Cafe menu or plate detail" loading="lazy">
-            <img class="reveal" src="/assets/images/_Y3A4122.jpg" alt="Coal Yard Cafe atmosphere" loading="lazy">
+            <img class="tall reveal" src="./assets/images/_Y3A4226.jpg" alt="Inside The Coal Yard Cafe" loading="lazy">
+            <img class="reveal" src="./assets/images/_Y3A6871.jpg" alt="Coal Yard Cafe seating and ambience" loading="lazy">
+            <img class="reveal" src="./assets/images/_Y3A4108.jpg" alt="Coal Yard Cafe dining area" loading="lazy">
+            <img class="reveal" src="./assets/images/_Y3A6913.jpg" alt="Coal Yard Cafe menu or plate detail" loading="lazy">
+            <img class="reveal" src="./assets/images/_Y3A4122.jpg" alt="Coal Yard Cafe atmosphere" loading="lazy">
           </div>
         </div>
       </section>
@@ -1539,6 +1544,8 @@
   </div>
 
   <script>
+    document.documentElement.classList.add("js");
+
     const filters = document.querySelectorAll(".menu-filter");
     const panels = document.querySelectorAll(".menu-panel");
 
@@ -1551,16 +1558,22 @@
       });
     });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.18 });
+    const revealElements = document.querySelectorAll(".reveal");
 
-    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18 });
+
+      revealElements.forEach((element) => observer.observe(element));
+    } else {
+      revealElements.forEach((element) => element.classList.add("is-visible"));
+    }
 
     const header = document.querySelector(".site-header");
     const toggle = document.querySelector(".mobile-toggle");
